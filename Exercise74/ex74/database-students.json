@@ -1,0 +1,86 @@
+﻿[
+  {
+    "Ma": "sv1",
+    "Ten": "Nguyễn Thị Lanh",
+    "MonHocs": [
+      {
+        "MaMonHoc": "MH1",
+        "TenMH": "Toán",
+        "Diem": 9.5
+      },
+      {
+        "MaMonHoc": "MH2",
+        "TenMH": "Lý",
+        "Diem": 7.5
+      },
+      {
+        "MaMonHoc": "MH3",
+        "TenMH": "Hóa",
+        "Diem": 8.0
+      }
+    ]
+  },
+  {
+    "Ma": "sv2",
+    "Ten": "Nguyễn Văn Chanh",
+    "MonHocs": [
+      {
+        "MaMonHoc": "MH1",
+        "TenMH": "Toán",
+        "Diem": 2.5
+      },
+      {
+        "MaMonHoc": "MH2",
+        "TenMH": "Lý",
+        "Diem": 8.5
+      },
+      {
+        "MaMonHoc": "MH3",
+        "TenMH": "Hóa",
+        "Diem": 9.0
+      }
+    ]
+  },
+  {
+    "Ma": "sv3",
+    "Ten": "Trần Văn Hồ",
+    "MonHocs": [
+      {
+        "MaMonHoc": "MH1",
+        "TenMH": "Toán",
+        "Diem": 3.5
+      },
+      {
+        "MaMonHoc": "MH2",
+        "TenMH": "Lý",
+        "Diem": 2.0
+      },
+      {
+        "MaMonHoc": "MH3",
+        "TenMH": "Hóa",
+        "Diem": 4.5
+      }
+    ]
+  },
+  {
+    "Ma": "sv4",
+    "Ten": "Phạm Ngọc Đồ",
+    "MonHocs": [
+      {
+        "MaMonHoc": "MH1",
+        "TenMH": "Toán",
+        "Diem": 4.5
+      },
+      {
+        "MaMonHoc": "MH2",
+        "TenMH": "Lý",
+        "Diem": 9.0
+      },
+      {
+        "MaMonHoc": "MH3",
+        "TenMH": "Hóa",
+        "Diem": 2.0
+      }
+    ]
+  }
+]

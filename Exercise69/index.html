@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ex69</title>
+    <style>
+        table,
+        tr,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        .book-information>thead>tr:nth-child(2n+1) {
+            background-color: lightgray;
+        }
+
+        .row-title {
+            background-color: green;
+            color: white;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <table border="1">
+            <thead>
+                <tr>
+                    <td>
+                        <label for="title">
+                            <b>Title:</b>
+                        </label>
+                    </td>
+                    <td colspan="2">
+                        <select name="title" id="title">
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row-title">
+                        Employee ID
+                    </td>
+                    <td class="row-title">
+                        Employee Name
+                    </td>
+                    <td class="row-title">
+                        Phone
+                    </td>
+                </tr>
+            </thead>
+            <tbody id="employee-list"> 
+            </tbody>
+        </table>
+    </div>
+    <script>
+        const employeeList = document.getElementById('employee-list');
+        const titleSelect = document.getElementById('title');
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', 'data.xml', true);
+        xhr.send();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                const employees = xhr.responseXML.getElementsByTagName('employee');
+                renderTitleSelect(employees);
+                for (let i = 0; i < employees.length; i++) {
+                    renderEmployeeRow(employees[i]);
+                }
+            }
+        }
+
+        
+        function renderEmployeeRow(employee) {
+            const employeeRow = document.createElement('tr');
+            employeeRow.dataset.title = employee.getAttribute('title');
+            employeeRow.innerHTML = `
+                <td>${employee.getAttribute('id')}</td>
+                <td>${employee.getElementsByTagName('name')[0].innerHTML}</td>
+                <td>${employee.getElementsByTagName('phone')[0].innerHTML}</td>
+            `;
+            employeeList.appendChild(employeeRow);
+        }
+
+        function renderTitleSelect(employees) {
+            const titles = [];
+            for (let i = 0; i < employees.length; i++) {
+                const title = employees[i].getAttribute('title');
+                if (titles.indexOf(title) === -1) {
+                    titles.push(title);
+                }
+            }
+            console.log(titles);
+
+            titles.forEach((title) => {
+                const option = document.createElement('option');
+                option.value = title;
+                option.innerHTML = title;
+                titleSelect.appendChild(option);
+            })
+            console.log(titleSelect.childNodes);
+        }
+
+        function filterEmployeeByTitle(event) {
+            const value = event.target.value;
+            const employeeRows = employeeList.childNodes;
+            for (let i = 0; i < employeeRows.length; i++) {
+                const employeeRow = employeeRows[i];
+                if (employeeRow.tagName !== 'TR') {
+                    continue;
+                }
+                const employeeTitle = employeeRow.dataset.title;
+                if (employeeTitle !== value) {
+                    employeeRow.style.display = 'none';
+                } else {
+                    employeeRow.style.display = 'table-row';
+                }
+            }
+        }
+
+        titleSelect.addEventListener('change', filterEmployeeByTitle);
+    </script>
+</body>
+
+</html>

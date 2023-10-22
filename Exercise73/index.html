@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ex73</title>
+    <style>
+        table,
+        tr,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+
+        thead {
+            background-color: green;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <table border="1">
+            <thead>
+                <tr>
+                    <td>Product Code</td>
+                    <td>Product Name</td>
+                    <td>Unit Price</td>
+                </tr>
+            </thead>
+            <tbody id="product-list">
+
+            </tbody>
+        </table>
+        <script>
+            const products = [
+                {
+                    code: "sp1",
+                    name: "Cocacola",
+                    price: 15000
+                },
+                {
+                    code: "sp2",
+                    name: "Pepsi",
+                    price: 25000
+                },
+                {
+                    code: "sp3",
+                    name: "Sting",
+                    price: 17000
+                },
+            ]
+
+            const productList = document.getElementById("product-list");
+            products.forEach((product) => {
+                const productRow = document.createElement("tr");
+                const productCode = document.createElement("td");
+                const productName = document.createElement("td");
+                const productPrice = document.createElement("td");
+
+                productCode.innerHTML = product.code;
+                productName.innerHTML = product.name;
+                productPrice.innerHTML = product.price;
+
+                productRow.appendChild(productCode);
+                productRow.appendChild(productName);
+                productRow.appendChild(productPrice);
+
+                productCode.style.color = "red";
+                productName.style.color = "red  ";
+
+                productList.appendChild(productRow);
+            })
+        </script>
+    </div>
+</body>
+
+</html>

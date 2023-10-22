@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ex72</title>
+    <style>
+        table,
+        tr,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+
+        caption {
+            background-color: goldenrod;
+        }
+
+        thead {
+            background-color: green;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <table border="1">
+            <caption>
+                <b>List of Products</b>
+            </caption>
+            <thead>
+                <tr>
+                    <td>Product ID</td>
+                    <td>Product Name</td>
+                    <td>Quantity</td>
+                    <td>Unit Price</td>
+                </tr>
+            </thead>
+            <tbody id="product-list">
+
+            </tbody>
+        </table>
+    </div>
+    <script>
+        const productData = {
+            "Products": [
+                {
+                    "ProductID": "p123",
+                    "ProductName": "DELL Inspiron 14NR",
+                    "Quantity": 100,
+                    "UnitPrice": 150000
+                },
+                {
+                    "ProductID": "p456",
+                    "ProductName": "HP Inspiron 113",
+                    "Quantity": 130,
+                    "UnitPrice": 140000
+                },
+            ]
+        }
+
+        const productList = document.getElementById('product-list');
+        productData.Products.forEach((product) => {
+            const productRow = document.createElement('tr');
+            const productID = document.createElement('td');
+            const productName = document.createElement('td');
+            const quantity = document.createElement('td');
+            const unitPrice = document.createElement('td');
+
+            productID.innerHTML = product.ProductID;
+            productName.innerHTML = product.ProductName;
+            quantity.innerHTML = product.Quantity;
+            unitPrice.innerHTML = product.UnitPrice;
+
+            productRow.appendChild(productID);
+            productRow.appendChild(productName);
+            productRow.appendChild(quantity);
+            productRow.appendChild(unitPrice);
+
+            productID.style.color = 'red';
+            productName.style.color = 'red';
+
+            productList.appendChild(productRow);
+        })
+    </script>
+</body>
+
+</html>

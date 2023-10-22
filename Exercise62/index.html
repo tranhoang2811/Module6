@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ex62</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="container">
+        <table border="1">
+            <thead>
+                <tr>
+                    <td>#</td>
+                    <td>Student ID</td>
+                    <td>Student Name</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr onmouseover="changeYellow(this)" onmouseleave="changeGreen(this)">
+                    <td>1</td>
+                    <td>123456</td>
+                    <td>Albert Einstein</td>
+                </tr>
+                <tr onmouseover="changeYellow(this)" onmouseleave="changeGreen(this)">
+                    <td>2</td>
+                    <td>123456</td>
+                    <td>Niels Bohr</td>
+                </tr>
+                <tr onmouseover="changeYellow(this)" onmouseleave="changeGreen(this)">
+                    <td>3</td>
+                    <td>123456</td>
+                    <td>Stephen Hawking</td>
+                </tr>
+                <tr onmouseover="changeYellow(this)" onmouseleave="changeGreen(this)">
+                    <td>4</td>
+                    <td>123456</td>
+                    <td>Issac Newton</td>
+                </tr>
+                <tr onmouseover="changeYellow(this)" onmouseleave="changeGreen(this)">
+                    <td>5</td>
+                    <td>123456</td>
+                    <td>Nikola Tesla</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3">Designed by John</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <script>
+        function changeYellow(element) {
+            element.style.backgroundColor = 'yellow';
+        }
+
+        function changeGreen(element) {
+            element.style.backgroundColor = 'green';
+        }
+    </script>
+</body>
+</html>
+
+        
+    </script>
+</body>
+</html>

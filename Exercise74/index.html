@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ex74</title>
+    <style>
+        table,
+        tr,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background-color: yellow;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div>
+            <label for="search">Muốn tìm gì:</label>
+            <input type="text" id="search">
+        </div>
+        <table border="1">
+            <thead>
+                <tr>
+                    <td rowspan="2">Mã Sinh Viên</td>
+                    <td rowspan="2">Tên Sinh Viên</td>
+                    <td colspan="3">Điểm thành phần</td>
+                    <td rowspan="2">Điểm trung bình</td>
+                    <td rowspan="2">Kết quả</td>
+                </tr>
+                <tr>
+                    <td>Toán</td>
+                    <td>Lý</td>
+                    <td>Hóa</td>
+                </tr>
+            </thead>
+            <tbody id="student-list">
+            </tbody>
+        </table>
+    </div>
+    <script>
+        const studentList = document.getElementById('student-list');
+        const searchInput = document.getElementById('search');
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', 'ex74/database-students.json', true);
+        xhr.send();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                const students = JSON.parse(xhr.responseText);
+                students.forEach(renderStudentRow);
+            }
+        }
+
+        function renderStudentRow(student) {
+            const studentRow = document.createElement('tr');
+            studentRow.innerHTML = `
+                    <td>${student.Ma}</td>
+                    <td>${student.Ten}</td>
+                `;
+            const totalScore = student.MonHocs.reduce((total, monHoc) => {
+                const score = document.createElement('td');
+                score.innerText = monHoc.Diem;
+                studentRow.appendChild(score);
+                return total + monHoc.Diem;
+            }, 0);
+            const averageScore = Math.round(totalScore / student.MonHocs.length * 100) / 100;
+
+            const averageScoreCell = document.createElement('td');
+            averageScoreCell.innerText = averageScore;
+            studentRow.appendChild(averageScoreCell);
+
+            const resultCell = document.createElement('td');
+            resultCell.innerText = averageScore >= 5 ? 'Đậu' : 'Rớt';
+            studentRow.appendChild(resultCell);
+
+            studentList.appendChild(studentRow);
+        }
+
+        function onSearchInputChange(event) {
+            const searchValue = event.target.value;
+            const pattern = new RegExp(searchValue, 'i');
+            const studentRows = studentList.childNodes;
+            for (let i = 0; i < studentRows.length; i++) {
+                const studentRow = studentRows[i];
+                for (let j = 0; j < studentRow.childNodes.length; j++) {
+                    const cell = studentRow.childNodes[j];
+                    if (cell.tagName === 'TD' && pattern.test(cell.innerText)) {
+                        studentRow.style.display = 'table-row'
+                        break
+                    }
+                    studentRow.style.display = 'none'
+                }
+            }
+        }
+        studentList.removeChild(studentList.childNodes[0])
+        searchInput.addEventListener('input', onSearchInputChange);
+    </script>
+</body>
+
+</html>

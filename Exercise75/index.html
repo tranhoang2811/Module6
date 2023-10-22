@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ex75</title>
+    <style>
+        table,
+        tr,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        .book-information>thead>tr:nth-child(2n+1) {
+            background-color: lightgray;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <table border="1" class="book-information">
+            <thead>
+                <tr>
+                    <td>
+                        <label for="id">
+                            Nhập Mã:
+                        </label>
+                    </td>
+                    <td>
+                        <input type="text" id="id">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="name">
+                            Nhập Tên:
+                        </label>
+                    </td>
+                    <td>
+                        <input type="text" id="name">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="both">
+                            Mã và Tên:
+                        </label>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="2">Danh sách Sách đang mượn:</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="2">
+                        <table border="1" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <td>
+                                        <b>
+                                            Mã sách
+                                        </b>
+                                    </td>
+                                    <td>
+                                        <b>
+                                            Tên sách
+                                        </b>
+                                    </td>
+                                    <td>
+                                        <b>
+                                            Số trang
+                                        </b>
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody id="book-list">
+
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        const student = {
+            Ma: 1,
+            Ten: 'Trần Duy Thanh',
+            Sachs:
+                [
+                    { Ma: 'S1', Ten: 'Hồng Lâu Mộng', Trang: 100 },
+                    { Ma: 'S2', Ten: 'Tây Du Ký', Trang: 200 },
+                    { Ma: 'S3', Ten: 'Tam Quốc Chí', Trang: 90 },
+                    { Ma: 'S4', Ten: 'Bích Huyết Kiếm', Trang: 70 },
+                    { Ma: 'S5', Ten: 'Anh Hùng Xạ Điêu', Trang: 1000 },
+                    { Ma: 'S6', Ten: 'Thần Điêu Đại Hiệp', Trang: 500 },
+                    { Ma: 'S7', Ten: 'Tần Thủy Hoàng', Trang: 600 },
+                    { Ma: 'S8', Ten: 'Chiến Quốc', Trang: 400 },
+                    { Ma: 'S9', Ten: 'Hán Sở Tranh Hùng', Trang: 300 },
+                    { Ma: 'S10', Ten: 'Bảo Đao', Trang: 700 },
+                ],
+            ChiTiet: function () {
+                sv = $scope.sinhvien
+                return sv.Ma + " " + sv.Ten
+            }
+        }
+
+        function renderBookRow(book, index) {
+            const rowColor = index % 2 === 0 ? 'white' : 'lightgray';
+            const bookRow = document.createElement('tr');
+            bookRow.style.backgroundColor = rowColor;
+            bookRow.innerHTML = `
+                <td>${book.Ma}</td>
+                <td>${book.Ten}</td>
+                <td>${book.Trang}</td>
+            `;
+            bookList.appendChild(bookRow);
+        }
+
+        function filterBook(field, value) {
+            const pattern = new RegExp(value, 'i');
+            const index = field === 'id' ? 1 : 3;
+            const bookRows = bookList.childNodes;
+            for (let i = 0; i < bookRows.length; i++) {
+                const bookRow = bookRows[i];
+                if (bookRow.tagName !== 'TR') {
+                    continue
+                }
+                const bookField = bookRow.childNodes[index].innerText;
+                if (pattern.test(bookField)) {
+                    bookRow.style.display = 'table-row';
+                } else {
+                    bookRow.style.display = 'none';
+                }
+            }
+        }
+
+        const bookList = document.getElementById('book-list');
+        student.Sachs.forEach(renderBookRow);
+
+        const idInput = document.getElementById('id');
+        const nameInput = document.getElementById('name');
+
+        idInput.addEventListener('input', function (event) {
+            filterBook('id', event.target.value);
+        });
+
+        nameInput.addEventListener('input', function (event) {
+            filterBook('name', event.target.value);
+        });
+
+    </script>
+</body>
+
+</html>

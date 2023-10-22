@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ex71</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="container">
+        <table>
+            <tr>
+                <td colspan="2" style="background-color: aqua; text-align: center;">
+                    User Information
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script>
+        const user = {
+            "id": "100005823642721",
+            "firstName": "Duy Thanh",
+            "gender": "male",
+            "lastName": "Trần",
+            "link": "https://www.facebook.com/duythanhcse",
+            "locale": "en_US",
+            "birthday": "20/12/1961",
+            "name": "Duy Thanh Trần",
+            "username": "duythanhcse"
+        }
+        const userKeys = Object.keys(user);
+        const userValues = Object.values(user);
+
+        const table = document.querySelector('table');
+
+        for (let i = 0; i < userKeys.length; i++) {
+            const key = userKeys[i];
+            const value = userValues[i];
+
+            const information = document.createElement('tr');
+            const keyElement = document.createElement('td');
+            const valueElement = document.createElement('td');
+
+            keyElement.innerHTML = key;
+            valueElement.innerHTML = value;
+            information.appendChild(keyElement);
+            information.appendChild(valueElement);
+            table.appendChild(information);
+        }
+
+    </script>
+</body>
+
+</html>

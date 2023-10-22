@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ex68</title>
+    <style>
+        table,
+        tr,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        thead tr {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <button style="margin-bottom: 12px;">
+            Get my CD collection
+        </button>
+        <table border="1">
+            <thead>
+                <tr>
+                    <td><b>Artist</b></td>
+                    <td><b>Title</b></td>
+                </tr>
+            </thead>
+            <tbody id="collection">
+
+            </tbody>
+        </table>
+    </div>
+    <script>
+        const button = document.querySelector('button');
+        const collection = document.getElementById('collection');
+
+        function getCdCollection(event) {
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", "ex68/cd_catalog.xml", true);
+            xhr.send();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    renderCdCollection(xhr.responseXML);
+                }
+            }
+        }
+
+        function renderCdCollection(xmlDoc) {
+            const cds = xmlDoc.getElementsByTagName('CD');
+            for (let i = 0; i < cds.length; i++) {
+                const cd = cds[i];
+                const newCd = document.createElement('tr');
+                const artist = document.createElement('td');
+                const title = document.createElement('td');
+                artist.innerText = cd.getElementsByTagName('ARTIST')[0].textContent;
+                title.innerText = cd.getElementsByTagName('TITLE')[0].textContent;
+                newCd.appendChild(artist);
+                newCd.appendChild(title);
+                collection.appendChild(newCd);
+            }
+        }
+
+        button.addEventListener('click', getCdCollection);
+    </script>
+</body>
+
+</html>

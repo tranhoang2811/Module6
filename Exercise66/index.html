@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ex66</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td colspan="2" style="background-color: aqua; text-align: center;">
+                Student Information
+            </td>
+        </tr>
+        <tr onmouseover="onMouseOver(this)" onmouseout="onMouseOut(this)">
+            <td>Student ID:</td>
+            <td id="studentId"></td>
+        </tr>
+        <tr onmouseover="onMouseOver(this)" onmouseout="onMouseOut(this)">
+            <td>Student Name:</td>
+            <td id="studentName"></td>
+        </tr>
+        <tr onmouseover="onMouseOver(this)" onmouseout="onMouseOut(this)">
+            <td>Birthday:</td>
+            <td id="birthday"></td>
+        </tr>
+        <tr onmouseover="onMouseOver(this)" onmouseout="onMouseOut(this)">
+            <td>Gender:</td>
+            <td id="gender"></td>
+        </tr>
+    </table>
+    <script>
+        const xmlText = `
+            <student>
+                <id>987456</id>
+                <name>Marie Curie </name>
+                <birthday>7/11/1867</birthday >
+                <gender>Woman</gender >
+            </student>`
+
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(xmlText, "text/xml");
+        const student = xmlDoc.getElementsByTagName("id")[0];
+        const studentName = xmlDoc.getElementsByTagName("name")[0];
+        const birthday = xmlDoc.getElementsByTagName('birthday')[0]
+        const gender = xmlDoc.getElementsByTagName('gender')[0]
+
+        document.getElementById("studentId").innerHTML = student.textContent;
+        document.getElementById("studentName").innerHTML = studentName.textContent;
+        document.getElementById("birthday").innerHTML = birthday.textContent;
+        document.getElementById('gender').innerHTML = gender.textContent
+
+        function onMouseOver(element) {
+            element.style.backgroundColor = "blue";
+            element.style.color = "white"
+        }
+
+        function onMouseOut(element) {
+            element.style.backgroundColor = "white";
+            element.style.color = "black"
+        }
+    </script>
+</body>
+
+</html>

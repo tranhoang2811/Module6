@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ex67</title>
+    <style>
+        table,
+        tr,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+
+        caption {
+            background-color: goldenrod;
+        }
+
+        thead {
+            background-color: green;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <table border="1">
+        <caption>
+            <b>List of Students</b>
+        </caption>
+        <thead>
+            <tr>
+                <td class="sort" data-sort="id">Student ID</td>
+                <td class="sort" data-sort="name">Student Name</td>
+                <td class="sort" data-sort="birthday">Student BirthDay</td>
+                <td class="sort" data-sort="gender">Gender</td>
+            </tr>
+        </thead>
+        <tbody id="member-list">
+
+        </tbody>
+    </table>
+
+
+    <script>
+        const xmlText = `
+            <students>
+                <student>
+                    <id>987456</id>
+                    <name>Marie Curie</name>
+                    <birthday>7/11/1867</birthday>
+                    <gender>Woman</gender>
+                </student>
+                <student>
+                    <id>987561</id>
+                    <name> Einstein </name>
+                    <birthday>3/14/1879</birthday>
+                    <gender>Man</gender>
+                </student>
+                <student>
+                    <id>985467</id>
+                    <name>Leó Szilárd</name>
+                    <birthday>11/2/1898</birthday>
+                    <gender>Man</gender>
+                </student>
+            </students>`
+
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(xmlText, "text/xml");
+        const students = xmlDoc.getElementsByTagName("student");
+        const memberList = document.getElementById("member-list");
+        const queryParams = ['id', 'name', 'birthday', 'gender']
+
+        for (let i = 0; i < students.length; i++) {
+            const student = students[i];
+            const studentId = student.getElementsByTagName("id")[0].textContent;
+            const studentName = student.getElementsByTagName("name")[0].textContent;
+            const studentBirthday = student.getElementsByTagName("birthday")[0].textContent;
+            const studentGender = student.getElementsByTagName("gender")[0].textContent;
+
+            const newMember = document.createElement("tr");
+            newMember.addEventListener("mouseover", onMouseOver);
+            newMember.addEventListener("mouseout", onMouseOut);
+            newMember.addEventListener("click", gotoDetail);
+            newMember.innerHTML = `
+                <td>${studentId}</td>
+                <td>${studentName}</td>
+                <td>${studentBirthday}</td>
+                <td>${studentGender}</td>
+            `;
+            memberList.appendChild(newMember);
+        }
+
+        function sortFunction(rowA, rowB, sortType, colIndex, direction) {
+            const cellA = rowA.querySelectorAll("td")[colIndex];
+            const cellB = rowB.querySelectorAll("td")[colIndex];
+
+            switch (sortType) {
+                case "id":
+                    return direction * (parseInt(cellA.textContent) - parseInt(cellB.textContent));
+                case "name":
+                    return direction * cellA.textContent.localeCompare(cellB.textContent);
+                case "birthday":
+                    const dateA = new Date(cellA.textContent);
+                    const dateB = new Date(cellB.textContent);
+                    return direction * (dateA.getTime() - dateB.getTime());
+                case "gender":
+                    return direction * cellA.textContent.localeCompare(cellB.textContent);
+            }
+        };
+
+        function sortTable(colIndex, sortDirection, sortType) {
+            const rows = Array.from(memberList.querySelectorAll("tr"));
+            const direction = sortDirection === "asc" ? 1 : -1;
+            const sortedRows = rows.sort((rowA, rowB) => sortFunction(rowA, rowB, sortType, colIndex, direction));
+            memberList.innerHTML = "";
+            sortedRows.forEach(row => memberList.appendChild(row));
+        };
+
+        const headerCells = document.querySelectorAll(".sort");
+        headerCells.forEach(cell => {
+            cell.addEventListener("click", () => {
+                const sortDirection = cell.dataset.sortDirection === "asc" ? "desc" : "asc";
+                const sortType = cell.dataset.sort
+                cell.dataset.sortDirection = sortDirection;
+                sortTable(cell.cellIndex, sortDirection, sortType);
+            });
+        });
+
+        function onMouseOver(event) {
+            event.target.parentNode.style.backgroundColor = "yellow";
+        }
+        function onMouseOut(event) {
+            event.target.parentNode.style.backgroundColor = "white";
+        }
+        function gotoDetail(event) {
+            const row = event.target.parentNode;
+            const cells = row.querySelectorAll("td");
+            const cellValues = [];
+            for (let i = 0; i < cells.length; i++) {
+                cellValues.push(`${queryParams[i]}=${cells[i].textContent}`);
+            }
+            window.location.href = `detail.html?${cellValues.join("&")}`;
+        }
+
+    </script>
+</body>
+
+</html>

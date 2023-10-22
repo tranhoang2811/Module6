@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<employees>
+    <employee id="1" title="Architect">
+        <name>John</name>
+        <phone>0987456689</phone>
+    </employee>
+    <employee id="2" title="Engineer">
+        <name>Peter</name>
+        <phone>0948762123</phone>
+    </employee>
+    <employee id="3" title="Teacher">
+        <name>Cayse</name>
+        <phone>0916563214</phone>
+    </employee>
+    <employee id="4" title="Architect">
+        <name>Tom</name>
+        <phone>0974123214</phone>
+    </employee>
+    <employee id="5" title="Engineer">
+        <name>Daisy</name>
+        <phone>0967854123</phone>
+    </employee>
+</employees>

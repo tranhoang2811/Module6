@@ -1,0 +1,28 @@
+table,
+tr,
+td {
+    border-collapse: collapse;
+}
+  
+table {
+    width: 500px;
+}
+
+thead {
+    background-color: #2871d6;
+    color: white;
+}
+
+tbody tr:nth-child(2n) {
+    background-color: #c9bebe;
+}
+
+tbody tr:hover {
+    background-color: yellow;
+    cursor: pointer;
+}
+
+tfoot {
+    background-color: #2871d6;
+    color: white;
+}

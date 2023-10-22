@@ -1,0 +1,8 @@
+.basic-information > label {
+    margin-right: 20px;
+}
+
+table thead tr {
+    background-color: blue;
+    color: white;
+}

@@ -1,0 +1,18 @@
+.action-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.action-group {
+    display: flex;
+    gap: 8px;
+}
+
+.action-group button {
+    width: 116px;
+}
+
+.action-group input {
+    box-sizing: border-box;
+}

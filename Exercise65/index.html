@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ex65</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="action-container">
+            <div class="action-group">
+                <button id="add-node-button">
+                    Add Node
+                </button>
+                <div class="value-control">
+                    <label for="newNodeContent">Content</label>
+                    <input type="text" id="newNodeContent" required>
+                </div>
+                <div class="position-control">
+                    <label for="newNodePosition">Position</label>
+                    <input type="number" id="newNodePosition" required>
+                </div>
+            </div>
+            <div class="action-group">
+                <button id="remove-node-button">
+                    Remove Node
+                </button>
+                <div class="position-control">
+                    <label for="removeNodePosition">Position</label>
+                    <input type="number" id="removeNodePosition" required>
+                </div>
+            </div>
+            <div class="action-group">
+                <button id="modify-node-button">
+                    Modify Node
+                </button>
+                <div class="value-control">
+                    <label for="modifyNodeContent">Content</label>
+                    <input type="text" id="modifyNodeContent" required>
+                </div>
+                <div class="position-control">
+                    <label for="modifyNodePosition">Position</label>
+                    <input type="number" id="modifyNodePosition" required>
+                </div>
+            </div>
+        </div>
+        <p>Web Node</p>
+        <ul id="item-list">
+            <li>Database</li>
+        </ul>
+    </div>
+    <script>
+        const itemList = document.getElementById('item-list');
+        itemList.removeChild(itemList.firstChild);
+        itemList.removeChild(itemList.lastChild);
+
+        function addNewNode(event) {
+            const content = document.getElementById('newNodeContent').value;
+            const position = document.getElementById('newNodePosition').value;
+            const newNode = document.createElement('li');
+            newNode.innerHTML = content;
+            if (position === '0') {
+                itemList.prepend(newNode);
+            } else {
+                const node = itemList.childNodes[position - 1];
+                itemList.insertBefore(newNode, node);
+            }
+        }
+
+        function removeNode(event) {
+            const position = document.getElementById('removeNodePosition').value;
+            const node = itemList.childNodes[position - 1];
+            itemList.removeChild(node);
+        }
+
+        function modifyNode(event) {
+            const content = document.getElementById('modifyNodeContent').value;
+            const position = document.getElementById('modifyNodePosition').value;
+            const node = itemList.childNodes[position - 1];
+            node.innerHTML = content;
+        }
+
+        document.getElementById('add-node-button').addEventListener('click', addNewNode);
+        document.getElementById('remove-node-button').addEventListener('click', removeNode);
+        document.getElementById('modify-node-button').addEventListener('click', modifyNode);
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ex67</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <table border="1">
+        <tr>
+            <td colspan="2" style="background-color: aqua; text-align: center;">
+                Student Information
+            </td>
+        </tr>
+        <tr onmouseover="onMouseOver(this)" onmouseout="onMouseOut(this)">
+            <td>Student ID:</td>
+            <td id="studentId"></td>
+        </tr>
+        <tr onmouseover="onMouseOver(this)" onmouseout="onMouseOut(this)">
+            <td>Student Name:</td>
+            <td id="studentName"></td>
+        </tr>
+        <tr onmouseover="onMouseOver(this)" onmouseout="onMouseOut(this)">
+            <td>Birthday:</td>
+            <td id="birthday"></td>
+        </tr>
+        <tr onmouseover="onMouseOver(this)" onmouseout="onMouseOut(this)">
+            <td>Gender:</td>
+            <td id="gender"></td>
+        </tr>
+    </table>
+    <script>
+
+        const queryParams = new URLSearchParams(window.location.search);
+        const studentId = queryParams.get('id');
+        const studentName = queryParams.get('name');
+        const studentBirthday = queryParams.get('birthday');
+        const studentGender = queryParams.get('gender');
+
+        document.getElementById("studentId").innerHTML = studentId;
+        document.getElementById("studentName").innerHTML = studentName;
+        document.getElementById("birthday").innerHTML = studentBirthday;
+        document.getElementById("gender").innerHTML = studentGender;
+
+        function onMouseOver(element) {
+            element.style.backgroundColor = "blue";
+            element.style.color = "white"
+        }
+
+        function onMouseOut(element) {
+            element.style.backgroundColor = "white";
+            element.style.color = "black"
+        }
+    </script>
+</body>
+
+</html>
